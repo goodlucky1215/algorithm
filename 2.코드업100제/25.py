@@ -1,0 +1,13 @@
+a=input()
+b=list(a)
+print('['+b[0]+'0000'+']')
+print('['+b[1]+'000'+']')
+print('['+b[2]+'00'+']')
+print('['+b[3]+'0'+']')
+print('['+b[4]+']')
+
+print('['+str(int(a[0])*10000)+']')
+print('['+str(int(a[1])*1000)+']')
+print('['+str(int(a[2])*100)+']')
+print('['+str(int(a[3])*10)+']')
+print('['+str(int(a[4]))+']')
