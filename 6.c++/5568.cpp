@@ -29,4 +29,3 @@ void push_num(){
 int main() {
   push_num();
   cout<<re.size();
-}
