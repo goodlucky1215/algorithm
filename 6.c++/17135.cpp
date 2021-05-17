@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-int row = 0;
+int row = 0; 
 int col = 0;
 int attack = 0;
 int cnt_max=0;
