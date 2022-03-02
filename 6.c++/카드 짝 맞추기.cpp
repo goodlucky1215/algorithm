@@ -30,55 +30,81 @@ int countCtrl2(int a,int b,int x,vector<vector<int>> board,bool check[]){
     return count++;
 }
 
-int countX(int a,int b,int y,vector<vector<int>> board,bool check[],int t){
-    int numX = 0;
-    int count = 0;
-    if(t==1){
-        for(int i=a+1;i<b;i++){
-            int num = board[i][y];
-            if(num!=0 and check[num]==0){
-                numX = num;
-                break;
-            }
-        }  
-        count = numX - a + 1;
-    }else{
-         for(int i=a-1;i>=0;i--){
-            int num = board[i][y];
-            if(num!=0 and check[num]==0){
-                numX = num;
-                break;
-            }
-        }     
-        count = a - numX + 1;
+int countCtrlX(int a,int b,int y,vector<vector<int>> board,bool check[],int t){
+    int re = 0;
+    for(int i=a+1;i<b;i++){
+        int num = board[i][y];
+        if(num!=0 and check[num]==0){
+            re = i;
+            if(t==-1) return (re-a);
+        }
     }
-    return count+1;
+    return (b-re);
 }
 
-int countY(int a,int b,int x,vector<vector<int>> board,bool check[],int t){
-    int numY = 0;
+int countCtrlY(int a,int b,int x,vector<vector<int>> board,bool check[],int t){
+    int re = 0;
+    for(int i=a+1;i<b;i++){
+        int num = board[x][i];
+        if(num!=0 and check[num]==0){
+            re = i;
+            if(t==-1) return (re-a);
+        }
+    }
+    return (b-re);
+}
+
+int countX(int a,int y,vector<vector<int>> board,bool check[],int t){
+    int numX = t;
     int count = 0;
-    if(t==1){
-        for(int i=a+1;i<b;i++){
-            int num = board[x][i];
+    if(t==4){
+        for(int i=a+1;i<4;i++){
+            int num = board[i][y];
             if(num!=0 and check[num]==0){
-                numY = num;
-                break;
-            }
-        }  
-        count = numY - a;
-    }else{
-         for(int i=a-1;i>=0;i--){
-            int num = board[x][i];
-            if(num!=0 and check[num]==0){
-                numY = num;
+                numX = i;
                 break;
             }
         }
-        count = a - numY; 
+        if(numX==4) count = numX - a;
+        else count = numX - a + 1;
+    }else{
+         for(int i=a-1;i>=0;i--){
+            int num = board[i][y];
+            if(num!=0 and check[num]==0){
+                numX = i;
+                break;
+            }
+        }     
+        count = a - numX +1;
+    }
+    return count;
+}
+
+int countY(int a,int x,vector<vector<int>> board,bool check[],int t){
+    int numY = t;
+    int count = 0;
+    if(t==4){
+        for(int i=a+1;i<4;i++){
+            int num = board[x][i];
+            if(num!=0 and check[num]==0){
+                numY = i;
+                break;
+            }
+        }
+        if(numY==4) count = numY - a;
+        else count = numY - a + 1;
+    }else{
+         for(int i=a-1;i>=0;i--){
+            int num = board[x][i];
+            if(num!=0 and check[num]==0){
+                numY = i;
+                break;
+            }
+        }
+        count = a - numY + 1; 
     }
 
-    return count+1;
+    return count;
 }
 
 int cardChoiceSu(int r, int c,int x,int y,vector<vector<int>> board,bool check[7]){
@@ -98,14 +124,20 @@ int cardChoiceSu(int r, int c,int x,int y,vector<vector<int>> board,bool check[7
         if(r<x) {
             xy=countCtrl1(r,x,c,board,check);
             // 해당 방향에 카드가 하나도 없다면 그 방향의 가장 마지막 칸으로 이동
-            if(xy==0 and check[board[x][c]]!=0){
-                xy= min(countX(x,4,c,board,check,1),x-r);
+            if(check[board[x][c]]==0){
+                if(xy!=0){
+                    xy+=countCtrlX(r,x,c,board,check,1);
+                    xy = min(xy, x-r)-1;
+                }else xy= min(countX(x,c,board,check,4),x-r)-1;
             }
         }
         else {
             xy =countCtrl1(x,r,c,board,check);
-            if(xy==0 and check[board[x][c]]!=0){
-                xy= min(countX(x,0,c,board,check,-1),r-x);                
+            if(check[board[x][c]]==0){
+                if(xy!=0){
+                    xy+=countCtrlX(x,r,c,board,check,-1);
+                    xy = min(xy, r-x)-1;
+                } else xy= min(countX(x,c,board,check,0),r-x)-1;                
             }
         }
         if(c<y) xy+=countCtrl2(c,y,x,board,check);
@@ -114,14 +146,20 @@ int cardChoiceSu(int r, int c,int x,int y,vector<vector<int>> board,bool check[7
         int yx = 0;
         if(c<y) {
             yx=countCtrl2(c,y,r,board,check);
-            if(yx==0 and check[board[r][y]]!=0){
-                yx= min(countY(y,4,r,board,check,1),y-c);         
+            if(check[board[r][y]]==0){
+                if(yx!=0){
+                    yx+=countCtrlY(c,y,r,board,check,1);
+                    yx = min(yx,y-c)-1;
+                } else yx= min(countY(y,r,board,check,4),y-c)-1;         
             }
         }
         else {
             yx=countCtrl2(y,c,r,board,check);
-            if(yx==0 and check[board[r][y]]!=0){
-                yx= min(countY(y,0,r,board,check,-1),c-y);         
+            if(check[board[r][y]]==0){
+                if(yx!=0){
+                    yx+=countCtrlY(y,c,r,board,check,-1);
+                    yx = min(yx,c-y)-1;
+                } else yx= min(countY(y,r,board,check,0),c-y)-1;         
             }
         }
         if(r<x) yx+=countCtrl1(r,x,y,board,check);
@@ -171,7 +209,7 @@ int solution(vector<vector<int>> board, int r, int c) {
         }
     }
     cardSu/=2;
-    //2. 갯수가 적으니깐 브루트포스로 다 돌아본다. => 최대 720 경우의 수
+    //2. 갯수가 적으니깐 브루트포스로 다 돌아본다.
     goGame(board,r,c,0,0,check);
     return answer;
 }
