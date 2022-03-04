@@ -2,50 +2,81 @@
 #include<queue>
 #include <vector>
 
-
+#define up 0
+#define dow 1
+#define le 2
+#define ri 3
 using namespace std;
 
-int xy[4] = {1,-1,1,-1};
-
-int xy2[2][4] = {{1,1,-1,-1},{1,1,-1,-1}};
-
+bool check[100][100][4];
 int answer = 10000000;
-
 int n;
 
-
-bool checkLoad(int x, int y, int x1, int y1,vector<vector<int>> board){
-
-  if(x>=0 and x<=n and y>=0 and y<=n and x1>=0 and x1<=n and y1>=0 and y1<=n and board[x][y]==0 and board[x1][y1]==0) return true;
-
-  return false;
-
-}
-
-
+//현재 위치
 struct load{
-
   int x1, y1, x2, y2;
-
-  int re;
-
-  int shape;
-
+  int re; //시간
+  int shape; //가로는 1 , 세로는 2
 };
 
+//가로일때, 왼오위아 이동 시
+int x[4][2] = {{1,1},{-1,-1},{0,0},{0,0}};
+int y[4][2] = {{0,0},{0,0},{1,1},{-1,-1}};
+bool checkMove(int x3,int y3,int x4, int y4,vector<vector<int>> board){
+        if(x3>=0 and x3<=n and x4>=0 and x4<=n and y3>=0 and y3<=n and y4>=0 and y4<=n){
+            if(board[x3][y3] ==0 and board[x4][y4] ==0 and check[x3][y3][le]==0 and check[x4][y4][ri]==0) {
+                check[x3][y3][le]=1;
+                check[x4][y4][ri]=1;
+                return true;
+            }
+        }
+        return false;
+}
+
+bool checkMove1(int x3,int y3,int x4, int y4,vector<vector<int>> board){
+        if(x3>=0 and x3<=n and x4>=0 and x4<=n and y3>=0 and y3<=n and y4>=0 and y4<=n){
+            if(board[x3][y3] ==0 and board[x4][y4] ==0 and check[x3][y3][up]==0 and check[x4][y4][dow]==0) {
+                check[x3][y3][up]=1;
+                check[x4][y4][dow]=1;
+                return true;
+            }
+        }
+        return false;
+}
+
+//가로 => 세로 회전
+int xy[4][2] = {{-1,0},{1,0},{0,-1},{0,1}};
+int xy2[4][2] = {{1,0},{1,0},{0,-1},{0,-1}};
+int upDown[4][2] = {{up,dow},{dow,up},{dow,up},{up,dow}};     
+bool checkTurn(int x, int y, int x1, int y1, int x2, int y2,vector<vector<int>> board, int k){
+  if(x>=0 and x<=n and y>=0 and y<=n and x1>=0 and x1<=n and y1>=0 and y1<=n){
+      if(board[x][y]==0 and board[x1][y1]==0 and board[x2][y2]==0 and check[x][y][upDown[k][0]]==0 and check[x1][y1][upDown[k][1]]==0) {
+          check[x][y][upDown[k][0]]=1;
+          check[x1][y1][upDown[k][1]]=1;
+          return true;
+      }
+    }
+  return false;
+}
+
+//세로 => 가로 회전
+int xy3[4][2] = {{1,0},{1,0},{0,-1},{0,-1}};
+int xy4[4][2] = {{-1,0},{1,0},{0,-1},{0,1}};
+int leRi[4][2] = {{le,ri},{ri,le},{ri,le},{le,ri}};     
+bool checkTurn1(int x, int y, int x1, int y1, int x2, int y2,vector<vector<int>> board, int k){
+  if(x>=0 and x<=n and y>=0 and y<=n and x1>=0 and x1<=n and y1>=0 and y1<=n){
+      if(board[x][y]==0 and board[x1][y1]==0 and board[x2][y2]==0 and check[x][y][leRi[k][0]]==0 and check[x1][y1][leRi[k][1]]==0) {
+          check[x][y][leRi[k][0]]=1;
+          check[x1][y1][leRi[k][1]]=1;
+          return true;
+      }
+    }
+  return false;
+}
 
 load loadPut(int x, int y,int x2,int y2,int re,int sh){
-
-                    load lo1;
-
-                    lo1.x1=x; lo1.y1=y;
-
-                    lo1.x2=x2; lo1.x2=y2;
-
-                    lo1.re=re; lo1.shape=sh;
-
-                    return lo1;
-
+    load lo{x, y,x2,y2,re,sh};
+    return lo;
 }
 
 
@@ -53,270 +84,93 @@ int solution(vector<vector<int>> board) {
 
     n = board.size()-1;
 
-    bool check[100][100][100][100];
-
-    for(int i=0;i<=n;i++)
-
-        for(int j=0;j<=n;j++)
-
-            for(int k=0;k<=n;k++)
-
-                for(int t=0;t<=n;t++)check[i][j][k][t]=0;
-
     queue<load> qu;
 
-    check[0][0][0][1] = 1;
-
-    load lo;
-
-    lo.x1=0; lo.y1=0; lo.x2=0; lo.y2=1;
-
-    lo.re=0;lo.shape=1;
-
-     qu.push(lo);
+    check[0][0][le] = 1;
+    check[0][1][ri] = 1;
+    load lo{0,0,0,1,0,1};
+    qu.push(lo);
 
     while(!qu.empty()){
+        load lo = qu.front();
+        qu.pop();
 
-            load lo = qu.front();
-
-            qu.pop();
-
-
-            if(answer<=lo.re) continue;
-
-            if((lo.x1==n and lo.y1==n) or (lo.x2==n and lo.y2==n)) {
-
-        answer = min(answer,lo.re);
-
-        continue;
-
-    }
-
-            lo.re++;
-
-            if(lo.shape==1) {
-
-                    for(int i=0;i<2;i++){
-
-                    int x3 = lo.x1+xy[i];
-
-                    int y3 = lo.y1+xy2[0][i];
-
-              if(checkLoad(x3,y3,x3,lo.y1,board)) {
-
-                if(xy[i]==1 and check[lo.x2][lo.y2][x3][y3]==0) {
-
-                    check[lo.x2][lo.y2][x3][y3]=1;
-
-                    load lo1;
-
-                    lo1.x1=lo.x2; lo1.y1=lo.y2;
-
-                    lo1.x2=x3; lo1.x2=y3;
-
-                    lo1.re=lo.re; lo1.shape=2;
-
-                    qu.push(lo1);
-
-                }
-
-                else if(check[x3][y3][lo.x2][lo.y2]==0){
-
-                    check[x3][y3][lo.x2][lo.y2]=1;
-
-                    load lo1;
-
-                    lo1.x1=x3; lo1.y1=y3;
-
-                    lo1.x2=lo.x2; lo1.x2=lo.y2;
-
-                    lo1.re=lo.re; lo1.shape=2;
-
-                    qu.push(lo1);
-
-                   }
-
-            }
-
+        if(answer<=lo.re) continue;
+        if((lo.x1==n and lo.y1==n) or (lo.x2==n and lo.y2==n)) {
+            answer = min(answer,lo.re);
+            continue;
         }
 
-        for(int i=2;i<4;i++){
-
-            int x3 =lo.x2+xy[i];
-
-            int y3 =lo.y2+xy2[0][i];
-
-            if(checkLoad(x3,y3,x3,lo.y2,board)) {
-
-                if(xy[i]==1 and check[lo.x1][lo.y1][x3][y3]==0){
-
-                    check[lo.x1][lo.y1][x3][y3]=1;
-
-                    load lo1;
-
-                    lo1.x1=lo.x1; lo1.y1=lo.y1;
-
-                    lo1.x2=x3; lo1.x2=y3;
-
-                    lo1.re=lo.re; lo1.shape=2;
-
-                    qu.push(lo1);
-
+        lo.re++;
+        if(lo.shape==1) { //가로
+            //이동시
+            for(int i=0;i<4;i++){
+                int x3 = lo.x1+x[i][0];
+                int y3 = lo.y1+y[i][0];
+                int x4 = lo.x2+x[i][1];
+                int y4 = lo.y2+y[i][1];
+                if(checkMove(x3,y3,x4,y4,board)){
+                    qu.push(loadPut(x3,y3,x4,y4,lo.re,1));
                 }
-
-                else if(check[x3][y3][lo.x1][lo.y1]==0){
-
-                    check[x3][y3][lo.x1][lo.y1]=1;
-
-                    load lo1;
-
-                    lo1.x1=x3; lo1.y1=y3;
-
-                    lo1.x2=lo.x1; lo1.x2=lo.y1;
-
-                    lo1.re=lo.re; lo1.shape=2;
-
-                    qu.push(lo1);
-
+            }
+   
+            //회전시
+            for(int i=0;i<2;i++){
+                int x3 = lo.x1+xy[i][0];
+                int y3 = lo.y1+xy2[i][0];
+                int x4 = lo.x2+xy[i][1];
+                int y4 = lo.y2+xy2[i][1];
+                if(checkTurn(x3,y3,x4,y4,x3,lo.y1,board,i)) {
+                    if(upDown[i][0]==up) qu.push(loadPut(x3,y3,x4,y4,lo.re,2));
+                    else qu.push(loadPut(x4,y4,x3,y3,lo.re,2));
                 }
-
-
+            }
+            for(int i=2;i<4;i++){
+                int x3 = lo.x1+xy[i][0];
+                int y3 = lo.y1+xy2[i][0];
+                int x4 = lo.x2+xy[i][1];
+                int y4 = lo.y2+xy2[i][1];
+                if(checkTurn(x3,y3,x4,y4,x4,lo.y2,board,i)) {
+                    if(upDown[i][0]==up) qu.push(loadPut(x3,y3,x4,y4,lo.re,2));
+                    else qu.push(loadPut(x4,y4,x3,y3,lo.re,2));
+                }
             }
 
 
+    } else {
+            
+        //이동시
+        for(int i=0;i<4;i++){
+            int x3 = lo.x1+y[i][0];
+            int y3 = lo.y1+x[i][0];
+            int x4 = lo.x2+y[i][1];
+            int y4 = lo.y2+x[i][1];
+            if(checkMove1(x3,y3,x4,y4,board)){
+                qu.push(loadPut(x3,y3,x4,y4,lo.re,2));
+            }
         }
-
-
-      
-
-      if(lo.x1+1<=n and lo.x2+1<=n and board[lo.x1+1][lo.y1] ==0 and board[lo.x2+1][lo.y2] ==0 and check[lo.x1+1][lo.y1][lo.x2+1][lo.y2]==0) {
-
-           check[lo.x1+1][lo.y1][lo.x2+1][lo.y2]=1;
-
-            qu.push(loadPut(lo.x1+1,lo.y1,lo.x2+1,lo.y2,lo.re,1));
-
-        }
-
-        if(lo.x1-1>=0 and lo.x2-1>=0 and board[lo.x1-1][lo.y1] ==0 and board[lo.x2-1][lo.y2] ==0 and check[lo.x1-1][lo.y1][lo.x2-1][lo.y2]==0) {
-
-            check[lo.x1-1][lo.y1][lo.x2-1][lo.y2]=1;
-
-qu.push(loadPut(lo.x1-1,lo.y1,lo.x2-1,lo.y2,lo.re,1));
-
-        }
-
-      if(lo.y2+1<=n and board[lo.x2][lo.y2+1]==0 and check[lo.x2][lo.y2][lo.x2][lo.y2+1]==0) {
-
-          check[lo.x2][lo.y2][lo.x2][lo.y2+1]=1;
-
-qu.push(loadPut(lo.x2,lo.y2,lo.x2,lo.y2+1,lo.re,1));
-
-      }
-
-        if(lo.y1-1>=0 and board[lo.x1][lo.y1-1]==0 and check[lo.x1][lo.y1-1][lo.x1][lo.y1]==0) {
-
-
-         check[lo.x1][lo.y1-1][lo.x1][lo.y1]=1; 
-
-qu.push(loadPut(lo.x1,lo.y1-1,lo.x1,lo.y1,lo.re,1));
-
-
-      }
-
-    }///lo.shape==1
-
-    else {
-
-        if(lo.y1+1<=n and lo.y2+1<=n and board[lo.x1][lo.y1+1] ==0 and board[lo.x2][lo.y2+1] ==0 and check[lo.x1][lo.y1+1][lo.x2][lo.y2+1]==0) {
-
-            check[lo.x1][lo.y1+1][lo.x2][lo.y2+1]=1;          qu.push(loadPut(lo.x1,lo.y1+1,lo.x2,lo.y2+1,lo.re,2));
-
-        }
-
-       if(lo.y1-1>=0 and lo.y2-1>=0 and board[lo.x1][lo.y1-1] ==0 and board[lo.x2][lo.y2-1] ==0 and check[lo.x1][lo.y1-1][lo.x2][lo.y2-1]==0) {
-
-check[lo.x1][lo.y1-1][lo.x2][lo.y2-1]=1;
-
-qu.push(loadPut(lo.x1,lo.y1-1,lo.x2,lo.y2-1,lo.re,2));
-
-        }
-
-       if(lo.x2+1<=n and board[lo.x2+1][lo.y2]==0 and check[lo.x2][lo.y2][lo.x2+1][lo.y2]==0) {
-
-           check[lo.x2][lo.y2][lo.x2+1][lo.y2]=1;
-
-qu.push(loadPut(lo.x2,lo.y2,lo.x2+1,lo.y2,lo.re,2));
-
-       }
-
-      
-
-       if(lo.x1-1>=0 and board[lo.x1-1][lo.y1]==0 and check[lo.x1-1][lo.y1][lo.x1][lo.y1]==0) {
-
-
-           check[lo.x1-1][lo.y1][lo.x1][lo.y1]=1;
-
-qu.push(loadPut(lo.x1,lo.y1,lo.x1,lo.y1-1,lo.re,2));
-
-
-       }
-
+            
+        //회전시
         for(int i=0;i<2;i++){
-
-            int x3 = lo.x1+xy2[1][i];
-
-            int y3 = lo.y1+xy[i];
-
-            if(checkLoad(x3,y3,lo.x1,y3,board)) {
-
-                if(xy[i]==1 and check[lo.x2][lo.y2][x3][y3]==0){
-
-                    check[lo.x2][lo.y2][x3][y3]=1;
-
-                    qu.push(loadPut(lo.x2,lo.y2,x3,y3,lo.re,1));
-
-                }
-
-                else if(check[x3][y3][lo.x2][lo.y2]==0){
-
-                    check[x3][y3][lo.x2][lo.y2]=1;       qu.push(loadPut(x3,y3,lo.x2,lo.y2,lo.re,1));
-
-                }
-
+            int x3 = lo.x1+xy3[i][0];
+            int y3 = lo.y1+xy4[i][0];
+            int x4 = lo.x2+xy3[i][1];
+            int y4 = lo.y2+xy4[i][1];
+            if(checkTurn1(x3,y3,x4,y4,lo.x1,y3,board,i)) {
+                if(leRi[i][0]==le) qu.push(loadPut(x3,y3,x4,y4,lo.re,1));
+                else qu.push(loadPut(x4,y4,x3,y3,lo.re,1));
             }
-
         }
-
         for(int i=2;i<4;i++){
-
-            int x3 =lo.x2+xy2[1][i];
-
-            int y3 =lo.y2+xy[i];
-
-            if(checkLoad(x3,y3,lo.x2,y3,board)) {
-
-                if(xy[i]==1 and check[lo.x1][lo.y1][x3][y3]==0) {
-
-                    check[lo.x1][lo.y1][x3][y3]=1;
-
-qu.push(loadPut(lo.x1,lo.y1,x3,y3,lo.re,1));
-
-                }
-
-                else if(check[x3][y3][lo.x1][lo.y1]==0){
-
-                    check[x3][y3][lo.x1][lo.y1]=1;
-
-                    qu.push(loadPut(x3,y3,lo.x1,lo.y1,lo.re,1));
-
-                }
-
-
+            int x3 = lo.x1+xy3[i][0];
+            int y3 = lo.y1+xy4[i][0];
+            int x4 = lo.x2+xy3[i][1];
+            int y4 = lo.y2+xy4[i][1];
+            if(checkTurn1(x3,y3,x4,y4,lo.x2,y4,board,i)) {
+                if(leRi[i][0]==le) qu.push(loadPut(x3,y3,x4,y4,lo.re,1));
+                else qu.push(loadPut(x4,y4,x3,y3,lo.re,1));
             }
-
-
         }
-
    }
 
 
