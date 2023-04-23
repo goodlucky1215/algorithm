@@ -126,3 +126,57 @@ for i, v in enumerate(a):
     print(i, v, "/", end=' ')
 print()
 
+#8. 나눗셈 연산자 : / 는 나눗셈, / 는 몫, % 는 나머지
+print("나눗셈 : ",5/3, "type : ",type(5/3))
+print("몫 : ",5//3, "type : ",type(5//3))
+print("나머지 : ",5%3, "type : ",type(5%3))
+
+#9. print
+# 콤마(,)로 구분하면된다. 구분자는 한 칸 공백이 디폴트 설정되어있다.
+print('a','b')
+# sep파라미터로 구분자를 지정해줄 수 있다.
+print('a','b',sep=',')
+# print() 함수는 항상 줄바꿈을 한다.
+print('a')
+print('b')
+# end파라미터를 공백으로 처리하여 줄바꿈을 하지 않도록 할 수 있다.
+print('a',end='')
+print('b')
+# 리스트를 출력할 때는 join으로 묶어서 출력한다.
+list_print = ['A','B']
+print(list_print)
+print(' '.join(list_print))
+print(','.join(list_print))
+# Quiz. 다음과 같이 idx에 1을 더해서 fruit와 함께 출력하는 방법은?
+idx = 1
+fruit = 'apple'
+# 방법1 : 인덱스를 사용
+print('{0}: {1}'.format(idx+1,fruit))
+# 방법2 : 인덱스를 생략해서도 가능
+print('{}: {}'.format(idx+1,fruit))
+# 방법3 : f-string(formated string literal) => 인라인으로 삽입하는 방법
+# 간렬하고 직관적이면 속도도 빠르다. 그러나 파이썬 3.6+ 이하 버전에서는 동작을 안한다.
+print(f'{idx+1}: {fruit}')
+
+#10. pass
+# 코드 전체 골격을 잡고 코딩하는 경우가 생긴다.
+# 예를 들어 아래와같이 메소드 이름만 생성해둔다.
+'''
+class MyClass(object):
+    def method_a(self):
+    
+    def method_b(self):
+    
+c = MyClass()
+이런식으로하면 그런데 이 클래스 자체가 실행이 안된다.
+왜냐하면 method_a, method_b 안에 아무런 처리를 안했기 때문이다.
+그래서 이러한 오류를 방지하는게 바로 pass이다.
+'''
+#오류가 나지않고 골격을 만들 수 있다.
+#온라인코딩테스트 시에도 유용하게 활용할 수 있다.
+class MyClass(object):
+    def method_a(self):
+        pass
+    def method_b(self):
+        pass
+c = MyClass()
