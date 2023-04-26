@@ -180,3 +180,70 @@ class MyClass(object):
     def method_b(self):
         pass
 c = MyClass()
+
+#11. locals : 로컬 심볼 테이블 딕셔너리를 가져오는 메소드, 업데이트도 가능
+#로컬에 선언된 모든 변수를 조회할 수 있는 강력한 명령어
+#로컬 스코프에 제한해 정보를 조회할 수 있다. 클래스의 특정 메소드 내부에서나 함수 내부의 로컬 정보를 조회해 잘못 선언한 부분을 체킹할 수 있다.
+#변수명을 일일이 찾아보지 않고 로컬 스코프에서 정의된 변수를 출력해서 편리하다.
+#클래스 메소드 내부의 모든 로컬 변수를 출력해 주기 때문에 디버깅에 많은 도움이 된다.
+import pprint
+pprint.pprint(locals())
+
+#12. 구글 파이썬 스타일 가이드
+
+#A. 함수에 기본 값으로 가변 객체(mmutable Object)를 사용하지 않아야 한다.
+#함수가 객체를 수정하면 기본값이 변경되기 때문이다. 기본값으로 [] or {}를 사용하는 것은 지양해야 한다.
+
+#지양하는 방법
+from typing import Mapping, Optional
+
+
+def foo(a, b=[]):
+    pass
+def foo(a, b: Mapping = {}):
+    pass
+
+#선호하는 방법
+#불변 객체를 사용 => None을 명시적으로 할당하는 방법도 좋은 방법이다.
+def foo(a, b=None):
+    if b is None:
+        b = []
+
+
+class Sequeuce:
+    pass
+
+
+def foo(a, b: Optional[Sequeuce] = None):
+    if b is None:
+        b = []
+
+#B. True, False를 판별할 때는 암시적인 방법을 사용하는 방법이 간결하고 가독성이 높다.
+# 즉 False 임을 if foo != []: 보단 if foo: 로 충분하다.
+
+#a. 길이 처리
+users = []
+#선호
+if not users:
+    print("no users")
+#비선호
+if len(users) == 0:
+    print("no users")
+
+#b. 정수를 처리할 때는 값을 직접 비교하는 편이 낫다.
+#선호
+if foo == 0 :
+    print(foo)
+#비선호
+if foo is not None and not foo :
+    print(foo)
+#c. 명시적으로 값을 비교하는 편이 좋다.
+i = 12
+#선호
+if i % 10 == 0:
+    print(i%10)
+#비선호
+if not i % 10:
+    print(i%10)
+
+#C. 한 줄에 최대 줄 길이는 80자 이하로 한다.
