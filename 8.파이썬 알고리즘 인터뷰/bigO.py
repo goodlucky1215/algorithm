@@ -44,6 +44,7 @@ A. int
   ex) int, long 구분되어 있으면 계산 오류나는 경험을 한 번씩은 해보았을 것이다.
  즉, 기능과 안전을 위해 속도를 맞바꾼 셈이다.
  자바같은 경우 int, long 따로 있지만, BigInteger로 임의 정밀도 자료형을 별도 제공하기도 한다.
+ 원시타입을 지원하지 않고 객체로 사용된다.
 B. bool
  엄밀히 따지면 논리 자료형
  파이썬에서 내부적으로 1(True)과 0(False)로 처리되는 int 서브 클래스다.
@@ -69,3 +70,38 @@ a = 'abc'
 print("a의 주소 :",id(a))
 a = 'def'
 print("a의 주소 :",id(a))
+
+
+'''
+D. 파이썬은 모든 것이 객체이다.
+- 불변 객체 : bool, int, float, tuple, str
+- 가변 객체 : list, set, dict
+주소를 비교해보면 불변과 가변의 차이를 쉽게 이해할 수 있다.
+'''
+a = 10
+b = a
+print("불변 객체의 주소 :",id(10), id(a), id(b))
+a = 11
+print("불변 객체의 주소 :",id(a), id(b))
+print("불변 객체의 값 :",a, b) #a값을 바꿔도 b는 그대로의 주소를 갖는다.
+
+a = [10,1,2]
+b = a
+print("가변 객체의 주소 :",id(a), id(b))
+a[1] = 20
+print("가변 객체의 주소 :",id(a), id(b))
+print("가변 객체의 값 :",a, b) #a값을 바꾸면 주소를 따라가서 b값도 변한다.
+
+'''
+
+E. 비교 연산자 : is 와 ==
+None(null)은 is로만 가능하다.
+is로 비교하면 별도의 객체가 복사되어 다른 값을 갖는다.
+
+'''
+if a is None:
+    print("aa")
+
+a = [1,3,3]
+print("a == list(a) :", a == list(a))
+print("a is list(a) :", a is list(a))
