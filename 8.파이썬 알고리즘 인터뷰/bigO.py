@@ -17,6 +17,8 @@
 '''
 
 # O(n) , O(n^2) , O(2^n) 의 시간복잡도 예시
+import collections
+
 print("[ O(n) , O(n^2) , O(2^n) 시간복잡도 비교 ]")
 for n in range(1,15+1):
     print(n, n**2, 2**n);
@@ -105,3 +107,28 @@ if a is None:
 a = [1,3,3]
 print("a == list(a) :", a == list(a))
 print("a is list(a) :", a is list(a))
+
+'''
+dict(딕셔너리) 모듈
+
+'''
+a = {}
+a['v'] = 123
+a['d'] = 342
+try:
+    print(a['a'])
+except KeyError:
+    print("생성하지 않은 값을 호출 시 에러가 나야 정상")
+
+a = collections.defaultdict(int)
+a['v'] = 123
+a['d'] = 342
+print("collections.defaultdict(int)을 사용하면 딕셔너리 에러가 나지않고 임의의로 값이 생성 =>",a['a'])
+
+a = ['a','b','c','a','a']
+b = collections.Counter(a);
+print("빈도수를 표시해준다 =>",b)
+print("빈도 가장 많은 데이터를 순서대로 표시해준다 =>",b.most_common(2))
+
+a = {'b':3, "a":10}
+print("파이썬 3.7부터는 입력 순서가 유지된다. (3.6 이하는 자동 정렬이 되었다.) =>",a)
