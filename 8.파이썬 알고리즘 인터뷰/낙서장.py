@@ -17,3 +17,6 @@ print(b.queue)
 b.get()
 print(b.queue)
 
+s = ["h2","e","l","l","o"]
+s[:] = s[::-1]
+print(s)
