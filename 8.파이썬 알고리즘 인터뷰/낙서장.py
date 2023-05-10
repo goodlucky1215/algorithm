@@ -2,6 +2,14 @@ import collections
 import queue
 from typing import List
 
+
+logs : List[str] = []
+logs.append("aaa")
+print(logs)
+a = []
+a.append(map('a','z'))
+print(a['a'])
+for i in logs : print(i[:1])
 s= List[str]
 b = []
 print(type(s),type(b))
