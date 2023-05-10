@@ -1,6 +1,10 @@
 import collections
 import queue
+from typing import List
 
+s= List[str]
+b = []
+print(type(s),type(b))
 a = collections.deque();
 a.append('a')
 a.append('b')
@@ -18,5 +22,8 @@ b.get()
 print(b.queue)
 
 s = ["h2","e","l","l","o"]
+print(len(s))
 s[:] = s[::-1]
-print(s)
+print("s의 주소 :",id(s))
+s= s[::-1]
+print("s의 주소 :",id(s))
