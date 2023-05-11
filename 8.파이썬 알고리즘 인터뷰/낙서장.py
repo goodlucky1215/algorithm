@@ -1,37 +1,18 @@
 import collections
 import queue
 from typing import List
+import collections
+import re
 
 
-logs : List[str] = []
-logs.append("aaa")
-print(logs)
-a = []
-a.append(map('a','z'))
-print(a['a'])
-for i in logs : print(i[:1])
-s= List[str]
-b = []
-print(type(s),type(b))
-a = collections.deque();
-a.append('a')
-a.append('b')
-a.append('c')
-print(a)
-a.pop()
-print(a)
-
-b = queue.Queue()
-b.put('a')
-b.put('b')
-b.put('c')
-print(b.queue)
-b.get()
-print(b.queue)
-
-s = ["h2","e","l","l","o"]
-print(len(s))
-s[:] = s[::-1]
-print("s의 주소 :",id(s))
-s= s[::-1]
-print("s의 주소 :",id(s))
+paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
+paragraph = re.sub(r'[^a-z\s]','',paragraph)
+print(paragraph)
+paragraph_change=''
+paragraph_change = paragraph_change.upper()
+paragraph_list = paragraph_change.split()
+paragraph_counter = collections.Counter(paragraph_list)
+paragraph_most = paragraph_counter.most_common(len(paragraph_counter))
+print(paragraph_counter)
+for i in paragraph_most:
+    print(i[0])

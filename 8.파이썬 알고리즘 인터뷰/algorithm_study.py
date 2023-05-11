@@ -35,3 +35,19 @@ print(re.sub('a', 'z', 'ab')) # zb
 print(re.sub('a', 'zxc', 'ab')) # zxcb
 print(re.sub('a', 'z', 'aaaab')) # zzzzb
 print(re.sub('a', 'z', 'aaaab', 1)) # zaaab => 갯수 지정
+
+'''
+list
+
+1. sort VS sorted
+sort 함수는 리스트명.sort( ) 형식으로 "리스트형의 메소드"이며 리스트 원본값을 직접 수정합니다.
+sorted 함수는 sorted( 리스트명 ) 형식으로 "내장 함수"이며 리스트 원본 값은 그대로이고 정렬 값을 반환한다.
+
+2. sort - lambda
+sorted(e, key = lambda x : (첫번째 정렬 기준, 첫번째 값이 같을 경우 두번째 정렬 기준));
+'''
+e = [(1,3),(0,3),(1,4),(1,5),(0,1),(2,4)]
+f = sorted(e, key = lambda x : (x[0],x[1])) # 첫번째 인자, 두번째 인자 모두 오름차순
+print(f)
+f = sorted(e, key = lambda x : (x[0],-x[1])) # 두번째 인자는 내림차순으로 변경
+print(f)
