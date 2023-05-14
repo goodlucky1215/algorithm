@@ -8,9 +8,8 @@
 
 '''
 
-
 '''
-char
+[[[[[[[[[[[[[[[[ char ]]]]]]]]]]]]]]]]]]]
 
 1. isalnum() : 영문자와 숫자를 찾아준다.
 
@@ -18,7 +17,7 @@ char
 '''
 
 '''
-string
+[[[[[[[[[[[[[[[[ string ]]]]]]]]]]]]]]]]]]]
 
 1. 슬라이싱 [::-1] : 글자를 뒤집을 수 있다. 내부적으로 C로 구현되어있어서 빠르다.
 '''
@@ -37,7 +36,7 @@ print(re.sub('a', 'z', 'aaaab')) # zzzzb
 print(re.sub('a', 'z', 'aaaab', 1)) # zaaab => 갯수 지정
 
 '''
-list
+[[[[[[[[[[[[[[[[ list ]]]]]]]]]]]]]]]]]]]
 
 1. sort VS sorted
 sort 함수는 리스트명.sort( ) 형식으로 "리스트형의 메소드"이며 리스트 원본값을 직접 수정합니다.
@@ -51,3 +50,14 @@ f = sorted(e, key = lambda x : (x[0],x[1])) # 첫번째 인자, 두번째 인자
 print(f)
 f = sorted(e, key = lambda x : (x[0],-x[1])) # 두번째 인자는 내림차순으로 변경
 print(f)
+
+'''
+3. collections.Counter(list) : list에서 반복되는 문자와 갯수 추출 (문자,반복회수)
+- collections.Counter(list).most_common(n) : n개 만큼의 제일 반복 많이 된 것부터 정렬
+'''
+import collections
+paragraph_list = ['a','b','c','a','b','a','e']
+paragraph_counter = collections.Counter(paragraph_list)
+print(paragraph_counter)
+paragraph_most = paragraph_counter.most_common(len(paragraph_counter))
+print(paragraph_most)
