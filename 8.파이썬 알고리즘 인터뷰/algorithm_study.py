@@ -47,14 +47,24 @@ sorted(e, key = lambda x : (첫번째 정렬 기준, 첫번째 값이 같을 경
 
 3. sorted - 정렬 옵션 key =
 sorted(list, key = len) => len으로 하면 길이 순으로 정렬된다.
+sorted(list, key = function) => 설정한 function으로도 정렬이 된다.
 '''
 e = [(1,3),(0,3),(1,4),(1,5),(0,1),(2,4)]
 f = sorted(e, key = lambda x : (x[0],x[1])) # 첫번째 인자, 두번째 인자 모두 오름차순
 print(f)
 f = sorted(e, key = lambda x : (x[0],-x[1])) # 두번째 인자는 내림차순으로 변경
 print(f)
+
 c= ['aaaaaaaaaaaaaa','bbbb','cc','ddddddd']
 print(sorted(c,key = len)) #길이가 가장 짧은게 앞으로 가는것을 확인할 수 있다.
+
+c = ['abc','bcd','bza']
+def func(str) :
+    return str[0],str[-1]
+print(sorted(c,key = func)) # 맨 첫글자로 정렬하고, 같으면 맨 마지막 글자로 비교 정렬하게 된다.
+print(sorted(c,key = lambda s:(s[0],s[-1]))) # lambda형식으로도 가능하다.
+
+
 '''
 3. collections.Counter(list) : list에서 반복되는 문자와 갯수 추출 (문자,반복회수)
 - collections.Counter(list).most_common(n) : n개 만큼의 제일 반복 많이 된 것부터 정렬
