@@ -12,8 +12,17 @@ class Solution:
 class Solution:
     def twoSum2(self, nums: List[int], target: int) -> List[int]:
         nums_len = len(nums)
-        for index, num in enumerate(nums):
+        for i, num in enumerate(nums):
             su = target - num
-            if su in nums[index+1:]:
-                return [first, second]
-        return None;
+            if su in nums[i+1:]:
+                return [i, nums[i+1:].index(su)+i+1]
+
+#index와 값을 반대로 담아서 해결
+class Solution:
+    def twoSum3(self, nums: List[int], target: int) -> List[int]:
+        dict = {}
+        for i, num in enumerate(nums):
+            dict[num] = i
+        for i, num in enumerate(nums):
+            if target-num in dict and i!=dict[target-num]:
+                return [i,dict[target-num]]
