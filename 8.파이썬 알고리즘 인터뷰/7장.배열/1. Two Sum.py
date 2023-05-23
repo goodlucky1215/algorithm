@@ -26,3 +26,12 @@ class Solution:
         for i, num in enumerate(nums):
             if target-num in dict and i!=dict[target-num]:
                 return [i,dict[target-num]]
+
+#index와 값을 반대로 담아서 해결 : 히나의 포문으로 합침
+class Solution:
+    def twoSum3(self, nums: List[int], target: int) -> List[int]:
+        dict = {}
+        for i, num in enumerate(nums):
+            if target-num in dict and i!=dict[target-num]:
+                return [i,dict[target-num]]
+            dict[num] = i
