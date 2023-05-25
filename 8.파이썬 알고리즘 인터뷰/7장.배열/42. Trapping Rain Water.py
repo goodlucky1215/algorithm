@@ -1,8 +1,7 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        total = 0;
-        start = 0
-        stack = []
+        volum = 0
+        stack  = []
         for i in range(len(height)) :
             if height[i]!=0:
                 stack.append[height[i]]
