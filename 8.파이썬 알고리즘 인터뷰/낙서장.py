@@ -13,3 +13,13 @@ for i, j in enumerate(lists):
 for s in di:
     if 'ad' in di :
         print("sdfsdfsd")
+result = set()
+
+lists= [1, 2, 3]
+lists.sort()
+
+result.add(tuple(lists))
+result.add(tuple([1, 2, 3]))
+print(result)
+result_list = [list(t) for t in result]
+print(result_list)
