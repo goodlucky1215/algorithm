@@ -4,7 +4,10 @@ from typing import List
 import collections
 import re
 
-print(range(5));
+list = []
+for i in range(3,-1,-1):
+    list[3]=1
+    print(i)
 paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
 lists = ['ad','cx','da']
 di = {}
