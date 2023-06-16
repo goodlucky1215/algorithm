@@ -7,6 +7,7 @@
 
 
 '''
+import sys
 
 '''
 [[[[[[[[[[[[[[[[ char ]]]]]]]]]]]]]]]]]]]
@@ -75,3 +76,13 @@ paragraph_counter = collections.Counter(paragraph_list)
 print(paragraph_counter)
 paragraph_most = paragraph_counter.most_common(len(paragraph_counter))
 print(paragraph_most)
+
+
+'''
+최댓값과 최솟값 초기값 지정 방법
+'''
+max_num = -sys.maxsize
+min_num = -sys.minsize
+#float를 이용해서 지정
+max_num = float('-inf')
+min_num = float('inf')
