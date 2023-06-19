@@ -2,7 +2,7 @@
 속도
 
 1. list  : pop(0)    => 속도는 O(n)
-   deque : popleft() => 속도는 O(1)
+   deque : popleft() => 속도는 O(1) #앞 뒤 모두 속도가 O(1)로 훨씬 빠르다.
 
 
 
@@ -81,8 +81,27 @@ print(paragraph_most)
 '''
 최댓값과 최솟값 초기값 지정 방법
 '''
-max_num = -sys.maxsize
-min_num = -sys.minsize
+max_num = sys.maxsize
+min_num = -sys.maxsize
 #float를 이용해서 지정
 max_num = float('-inf')
 min_num = float('inf')
+
+'''
+링크드 리스트
+'''
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+#생성
+head = ListNode(0)
+#추가 : 선언한 head를 이동하지 않고, 주소를 참소해서 다음 노드를 추가한다.
+add_node = head
+add_node.next = ListNode(1)
+#출력
+node = head
+while node:
+    print(node.val)
+    node = node.next

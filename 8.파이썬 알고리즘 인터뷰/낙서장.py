@@ -4,10 +4,21 @@ from typing import List
 import collections
 import re
 
-list = []
-for i in range(3,-1,-1):
-    list[3]=1
-    print(i)
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+head = ListNode(0)
+#추가 : 선언한 head를 이동하지 않고, 주소를 참소해서 다음 노드를 추가한다.
+add_node = head
+add_node.next = ListNode(1)
+node = head
+while node:
+    print(node.val)
+    node = node.next
+
+
+
 paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
 lists = ['ad','cx','da']
 di = {}
