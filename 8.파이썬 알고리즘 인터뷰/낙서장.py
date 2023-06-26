@@ -3,20 +3,21 @@ import queue
 from typing import List
 import collections
 import re
-
+'''
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
-head = ListNode(0)
-#추가 : 선언한 head를 이동하지 않고, 주소를 참소해서 다음 노드를 추가한다.
-add_node = head
-add_node.next = ListNode(1)
-node = head
-while node:
-    print(node.val)
-    node = node.next
-
+'''
+class Node:
+    def __init__(self, data, next=None):  #data 만 입력시 next 초기값은 None이다.
+        self.data = data #다음 데이터 주소 초기값 = None
+        self.next = next
+a=b=1
+s = Node(1)
+n = None
+n, n.next = s, n
+print(n.data, n.next)
 
 
 paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
