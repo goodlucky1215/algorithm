@@ -15,11 +15,15 @@ class Node:
         self.next = next
 a=b=1
 s = Node(1)
-n = None
-n, n.next = s, n
-print(n.data, n.next)
+s1 = Node(2)
+s2 = Node(3)
+s = s1
+s =s2
+head = s
 
-
+#while head :
+print(head.data)
+print(head.next.data)
 paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
 lists = ['ad','cx','da']
 di = {}
