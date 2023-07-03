@@ -1,6 +1,6 @@
 import collections
 import queue
-from typing import List
+from typing import List, Optional
 import collections
 import re
 '''
@@ -13,13 +13,19 @@ class Node:
     def __init__(self, data, next=None):  #data 만 입력시 next 초기값은 None이다.
         self.data = data #다음 데이터 주소 초기값 = None
         self.next = next
-a=b=1
+
 s = Node(1)
-s1 = Node(2)
-s2 = Node(3)
-s = s1
-s =s2
 head = s
+s.next = Node(2)
+s = s.next
+s.next = Node(3)
+s = s.next
+s.next = Node(4)
+s = s.next
+while head:
+    if head:
+        head.next
+        print(head.data)
 
 #while head :
 print(head.data)
