@@ -7,6 +7,7 @@
 
 
 '''
+import functools
 import sys
 
 '''
@@ -105,3 +106,26 @@ node = head
 while node:
     print(node.val)
     node = node.next
+
+'''
+숫자형 리스트 단일 값으로 변경
+
+1. map(function, iterable) : map(적용시킬 함수, 적용할 값들)
+
+2. functools : 함수를 다루는 함수
+   reduce(함수, 시퀀스) : 시퀀스(문자열, 리스트, 튜플)의 원소들을 누적적으로 함수에 적용
+   
+- 3번째 변수?
+    a = [1,2,3,4,5]
+    functools.reduce(lambda x,y:x*y,a,10) #여기서 마지막에 세번째변수 10
+    초기값을 10으로 설정한 것으로, 간단히 설명하자면 다음과 같습니다.
+    => ((((10 * 1) * 2) * 3) * 4) * 5)
+    functools.reduce(lambda x,y:x*y,a)
+    => (((1 * 2) * 3) * 4) * 5) 초기값이 없으면 2개 값부터 가지고 온다.
+'''
+a = [1,2,3,4,5]
+int(''.join(map(str,a)))
+
+functools.reduce(lambda x,y:x*10+y,a)
+
+# 둘 다 결과는

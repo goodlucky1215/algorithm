@@ -14,7 +14,7 @@ class Solution:
 
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-            def reverse(head : Optional[ListNode], prev = None)
+            def reverse(head : Optional[ListNode], prev = None) :
                 if not head :
                     return prev
                 head.next, next = prev, head.next

@@ -1,4 +1,5 @@
 import collections
+import functools
 import queue
 from typing import List, Optional
 import collections
@@ -14,22 +15,8 @@ class Node:
         self.data = data #다음 데이터 주소 초기값 = None
         self.next = next
 
-s = Node(1)
-head = s
-s.next = Node(2)
-s = s.next
-s.next = Node(3)
-s = s.next
-s.next = Node(4)
-s = s.next
-while head:
-    if head:
-        head.next
-        print(head.data)
 
-#while head :
-print(head.data)
-print(head.next.data)
+
 paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
 lists = ['ad','cx','da']
 di = {}
@@ -48,3 +35,8 @@ result.add(tuple([1, 2, 3]))
 print(result)
 result_list = [list(t) for t in result]
 print(result_list)
+
+a = [1,2,3,4,5]
+int(''.join(map(str,a)))
+
+print(functools.reduce(lambda x,y:x*10+y,a,0))
