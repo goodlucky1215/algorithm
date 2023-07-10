@@ -122,10 +122,13 @@ while node:
     => ((((10 * 1) * 2) * 3) * 4) * 5)
     functools.reduce(lambda x,y:x*y,a)
     => (((1 * 2) * 3) * 4) * 5) 초기값이 없으면 2개 값부터 가지고 온다.
+
+from operator import add, mul
+2-1. functools.reduce(add, [1,2,3,4,5])
+2-2. functools.reduce(mul, [1,2,3,4,5])
+
 '''
 a = [1,2,3,4,5]
-int(''.join(map(str,a)))
+int(''.join(map(str,a))) # 둘 다 결과는 12345
 
-functools.reduce(lambda x,y:x*10+y,a)
-
-# 둘 다 결과는
+functools.reduce(lambda x,y:x*10+y,a) # 둘 다 결과는 12345
