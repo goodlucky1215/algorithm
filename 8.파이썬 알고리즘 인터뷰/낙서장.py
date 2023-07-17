@@ -10,6 +10,11 @@ class ListNode:
         self.val = val
         self.next = next
 '''
+a = 0
+if a==0:
+    print("Sdfsdfeeeeeeee")
+for i in range(1):
+    print(i)
 class Node:
     def __init__(self, data, next=None):  #data 만 입력시 next 초기값은 None이다.
         self.data = data #다음 데이터 주소 초기값 = None
