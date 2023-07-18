@@ -20,6 +20,15 @@ class Node:
         self.data = data #다음 데이터 주소 초기값 = None
         self.next = next
 
+result = []
+table = {
+        ")" : "(",
+        "]" : "[",
+        "}" : "{"
+}
+
+if not result:
+    print("빈값")
 
 
 paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
