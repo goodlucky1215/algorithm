@@ -10,6 +10,11 @@ class ListNode:
         self.val = val
         self.next = next
 '''
+
+stack = []
+stack.append(1)
+stack.append(2)
+print(stack[-1])
 a = 0
 if a==0:
     print("Sdfsdfeeeeeeee")
