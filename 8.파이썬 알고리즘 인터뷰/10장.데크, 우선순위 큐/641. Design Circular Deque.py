@@ -1,21 +1,19 @@
+class MyCircularDeque:
 
+    def __init__(self, k: int):
 
-        class MyCircularDeque:
+    def insertFront(self, value: int) -> bool:
 
-            def __init__(self, k: int):
+    def insertLast(self, value: int) -> bool:
 
-            def insertFront(self, value: int) -> bool:
+    def deleteFront(self) -> bool:
 
-            def insertLast(self, value: int) -> bool:
+    def deleteLast(self) -> bool:
 
-            def deleteFront(self) -> bool:
+    def getFront(self) -> int:
 
-            def deleteLast(self) -> bool:
+    def getRear(self) -> int:
 
-            def getFront(self) -> int:
+    def isEmpty(self) -> bool:
 
-            def getRear(self) -> int:
-
-            def isEmpty(self) -> bool:
-
-            def isFull(self) -> bool:
+    def isFull(self) -> bool:
