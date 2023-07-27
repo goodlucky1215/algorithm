@@ -10,7 +10,10 @@ class ListNode:
         self.val = val
         self.next = next
 '''
-
+words_set = collections.defaultdict(int)
+words_set["aa"]=1
+if words_set["aa"]:
+    print("aaaaaaaaaaaaaaaaaaffffffffffffffffffffffff")
 stack = []
 stack.append(1)
 stack.append(2)
