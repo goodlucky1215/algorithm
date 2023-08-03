@@ -6,11 +6,17 @@ a.sort()
 def find_result():
     if n==1 :
         return 0
-    left,right=0,1
-    for i in a:
-        if a[left]+a[right]>x:
-        elif a[left]+a[right]<x:
-            right+=1
+    result = 0
+    left,right=0,n-1
+    while left<right:
+        if a[left]+a[right]<x:
+            left+=1
+        elif a[left]+a[right]>x:
+            right-=1
+        else:
+            right -= 1
+            result+=1
+    return result
 
 
 
