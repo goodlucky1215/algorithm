@@ -1,10 +1,19 @@
-import collections
 import functools
 import queue
 from typing import List, Optional
 import collections
 import re
+import math
+print(math.pow(8,2))
 
+a='1234'
+print(sorted(a))
+
+
+
+b = int('74', 8)
+
+print("--",b)
 
 s = "adsSDFSDFd"
 s.lower()
