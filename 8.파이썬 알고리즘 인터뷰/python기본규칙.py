@@ -247,3 +247,31 @@ if not i % 10:
     print(i%10)
 
 #C. 한 줄에 최대 줄 길이는 80자 이하로 한다.
+
+'''
+ [ Mutable vs Immutable Objects ]
+ 상태의 변경이 가능한 객체 (Mutable Object) 유형은 list, dictionary, set, bytearray, array.array, memoryview, deque
+ 상태의 변경이 불가능한 객체 (Immutable Object) 유형은 int, tuple, str, bytes
+'''
+# 1. Immutable Objects
+def test():
+    i=[0]
+    def a():
+        i[0]+=1
+        if i[0]>1:
+            return True
+        else:
+            return False
+    print(a())
+test()
+# 2. Mutable Objects =>  [ 에러발생 ] UnboundLocalError: local variable 'i' referenced before assignment
+def test():
+    i=0
+    def a():
+        i+=1
+        if i>1:
+            return True
+        else:
+            return False
+    print(a())
+test()
