@@ -44,4 +44,22 @@ class Solution:
 
         return result
 
-print(Solution().findItinerary([["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]))
+
+    def findItinerary1(self, tickets: List[List[str]]) -> List[str]:
+        graph = {}
+        result = []
+        for a, b in sorted(tickets,reverse=True):
+            if a not in graph:
+                graph[a]=[]
+            graph[a].append(b)
+
+        def dfs(a : str):
+            while a in graph and graph[a]:
+                dfs(graph[a].pop())
+            result.append(a)
+
+        dfs('JFK')
+
+        return result[::-1]
+
+print(Solution().findItinerary1([["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]))
