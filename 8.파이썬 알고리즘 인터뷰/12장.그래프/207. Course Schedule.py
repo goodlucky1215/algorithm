@@ -1,14 +1,30 @@
+import collections
 from typing import List
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        check = []
-        for i in range(numCourses+1):
-            check.append([0]*(numCourses+1))
-
+        check = collections.defaultdict(list)
         for i in prerequisites:
-            if check[i[0]][i[1]]==1 or i[0]==i[1] :
+            check[i[0]].append(i[1])
+
+        traced = set()
+
+        def dfs(start : int):
+            if start in traced:
                 return False
-            check[i[0]][i[1]]=1
-            check[i[1]][i[0]]=1
+            traced.add(start)
+
+            for y in check[start]:
+                if not dfs(y):
+                    return False
+                traced.remove(i)
+
+                return True
+
+        for i in check:
+            if not dfs(i):
+                return False
+
         return True
+
+print(Solution().canFinish(2,[[1,0],[0,1],[10,2]]))
